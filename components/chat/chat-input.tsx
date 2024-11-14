@@ -61,7 +61,11 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           </PopoverContent>
         </Popover>
 
-        <div className="w-full gradient-border rounded-lg bg-card">
+        <div className="w-full rounded-lg bg-card relative ring-offset-background transition-shadow duration-200
+          focus-within:shadow-[0_0_20px_rgba(34,211,238,0.25)] 
+          focus-within:ring-2 
+          focus-within:ring-cyan-500/50 
+          focus-within:border-cyan-500">
           <Textarea
             ref={textareaRef}
             value={input}

@@ -37,45 +37,62 @@ export function ChatMessages({ messages }: ChatMessagesProps) {
 
   return (
     <ScrollArea className="flex-1 p-4">
-      <div className="space-y-6 max-w-4xl mx-auto">
+      <div className="space-y-4 max-w-4xl mx-auto">
         {messages.map((message, i) => (
           <div
             key={i}
-            className={`message-appear flex items-start gap-4 ${
+            className={`message-appear flex items-start gap-3 p-4 rounded-lg shadow-sm relative transition-shadow duration-200 ${
               message.role === 'assistant'
-                ? 'bg-card p-6 rounded-lg shadow-sm gradient-border'
-                : ''
+                ? i === 0
+                  ? 'bg-card/50'
+                  : 'bg-card/50 shadow-[0_0_20px_rgba(16,185,129,0.25)] ring-2 ring-emerald-500/50 border-emerald-500'
+                : 'bg-card/50 shadow-[0_0_20px_rgba(34,211,238,0.25)] ring-2 ring-cyan-500/50 border-cyan-500'
             }`}
           >
-            <Avatar className={`mt-1 ${message.role === 'assistant' ? 'ring-2 ring-primary/20' : ''}`}>
+            <Avatar 
+              className={`mt-0.5 h-8 w-8 flex items-center justify-center ${
+                message.role === 'assistant' 
+                  ? i === 0
+                    ? ''
+                    : 'ring-2 ring-emerald-500/20'
+                  : 'ring-2 ring-cyan-500/20'
+              }`}
+            >
               {message.role === 'assistant' ? (
-                <Bot className="p-2" />
+                <Bot className="h-5 w-5" />
               ) : (
-                <User className="p-2" />
+                <User className="h-5 w-5" />
               )}
             </Avatar>
-            <div className="flex-1 space-y-2">
-              <ReactMarkdown className="prose dark:prose-invert max-w-none">
+            <div className="flex-1 space-y-1.5">
+              <ReactMarkdown 
+                className="prose dark:prose-invert max-w-none prose-sm"
+                components={{
+                  p: ({ children }) => <p className="text-sm leading-relaxed">{children}</p>,
+                  pre: ({ children }) => <pre className="text-sm">{children}</pre>,
+                  code: ({ children }) => <code className="text-xs">{children}</code>,
+                }}
+              >
                 {message.content}
               </ReactMarkdown>
-              {message.role === 'assistant' && (
-                <div className="flex gap-2 mt-4">
+              {message.role === 'assistant' && i !== 0 && (
+                <div className="flex gap-2 mt-3">
                   <Button 
                     size="sm" 
                     variant="secondary" 
-                    className="gap-2"
+                    className="gap-1.5 hover:bg-emerald-500/10 text-xs h-8"
                     onClick={() => handleCopy(message.content)}
                   >
-                    <Copy size={14} />
+                    <Copy size={12} />
                     Copy
                   </Button>
                   <Button
                     size="sm"
                     variant="secondary"
-                    className="gap-2"
+                    className="gap-1.5 hover:bg-emerald-500/10 text-xs h-8"
                     onClick={() => handleDownload(message.content)}
                   >
-                    <Download size={14} />
+                    <Download size={12} />
                     Download
                   </Button>
                 </div>

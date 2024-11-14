@@ -2,7 +2,7 @@
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, MessageSquare, Settings, Moon, Sun, Sparkles } from 'lucide-react';
+import { PlusCircle, MessageSquare, Settings, Moon, Sun, Sparkles, Cpu } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Separator } from '@/components/ui/separator';
 import { useEffect, useState } from 'react';
@@ -34,9 +34,14 @@ export function ChatSidebar() {
 
   return (
     <div className="flex h-screen w-[300px] flex-col bg-card p-4">
-      <div className="flex items-center gap-2 px-2 mb-6">
+      <div className="flex items-center gap-2 px-2 mb-2">
         <Sparkles className="w-6 h-6 text-primary" />
-        <h1 className="text-lg font-semibold">AI Assistant</h1>
+        <h1 className="text-lg font-semibold">Wexley v0.1</h1>
+      </div>
+
+      <div className="flex items-center gap-2 px-2 mb-4 text-sm text-muted-foreground">
+        <Cpu className="w-4 h-4" />
+        <span>Agentis Labs</span>
       </div>
 
       <Button className="w-full justify-start gap-2 gradient-border" variant="secondary">
@@ -73,11 +78,7 @@ export function ChatSidebar() {
           className="justify-start gap-2 hover:bg-muted/60"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
-          {theme === 'dark' ? (
-            <Sun size={16} />
-          ) : (
-            <Moon size={16} />
-          )}
+          {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           Toggle Theme
         </Button>
       </div>
